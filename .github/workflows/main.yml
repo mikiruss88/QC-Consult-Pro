@@ -1,1 +1,878 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>QC Consult Pro — Biopharmaceutical Quality Control Consultancy</title>
+<meta name="description" content="Expert consultancy services for biopharmaceutical quality control, offering tailored advice for graduates, SOP and documentation writing, project planning, and analytical method transfers.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
+  :root {
+    --navy:    #0b1f3a;
+    --navy-mid:#122a4e;
+    --teal:    #1a7b74;
+    --teal-lt: #24a99f;
+    --gold:    #c9a84c;
+    --gold-lt: #e8c97a;
+    --cream:   #f5f0e8;
+    --white:   #ffffff;
+    --text:    #1e2d40;
+    --muted:   #6b7f96;
+    --border:  rgba(26,123,116,.18);
+    --ff-serif: 'Cormorant Garamond', Georgia, serif;
+    --ff-sans:  'DM Sans', sans-serif;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--ff-sans);
+    background: var(--cream);
+    color: var(--text);
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ────────────────────────────────── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.1rem 5%;
+    background: rgba(11,31,58,.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(201,168,76,.2);
+    transition: padding .3s;
+  }
+  nav.scrolled { padding: .75rem 5%; }
+
+  .nav-logo {
+    display: flex; align-items: center; gap: .75rem;
+    text-decoration: none;
+  }
+  .nav-logo-icon {
+    width: 38px; height: 38px;
+    background: linear-gradient(135deg, var(--teal), var(--teal-lt));
+    border-radius: 8px;
+    display: grid; place-items: center;
+    font-family: var(--ff-serif); font-size: 1.1rem; font-weight: 600;
+    color: var(--white); letter-spacing: -.03em;
+  }
+  .nav-logo-text {
+    font-family: var(--ff-serif); font-size: 1.2rem; font-weight: 600;
+    color: var(--white); letter-spacing: .02em;
+  }
+  .nav-logo-text span { color: var(--gold); }
+
+  .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+  .nav-links a {
+    color: rgba(255,255,255,.75); text-decoration: none;
+    font-size: .88rem; font-weight: 400; letter-spacing: .06em;
+    text-transform: uppercase; transition: color .2s;
+  }
+  .nav-links a:hover, .nav-links a.active { color: var(--gold-lt); }
+
+  .nav-cta {
+    background: var(--teal); color: var(--white) !important;
+    padding: .55rem 1.4rem; border-radius: 4px;
+    transition: background .2s !important;
+  }
+  .nav-cta:hover { background: var(--teal-lt) !important; color: var(--white) !important; }
+
+  .nav-toggle { display: none; background: none; border: none; cursor: pointer; padding: .3rem; }
+  .nav-toggle span { display: block; width: 24px; height: 2px; background: var(--white); margin: 5px 0; transition: .3s; }
+
+  /* ── HERO ───────────────────────────────── */
+  #home {
+    min-height: 100vh;
+    background: var(--navy);
+    display: flex; align-items: center;
+    position: relative; overflow: hidden;
+  }
+
+  .hero-bg {
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse 60% 60% at 70% 40%, rgba(26,123,116,.22) 0%, transparent 70%),
+      radial-gradient(ellipse 40% 50% at 20% 80%, rgba(201,168,76,.08) 0%, transparent 60%);
+  }
+
+  /* subtle grid lines */
+  .hero-grid {
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,.03) 1px, transparent 1px);
+    background-size: 60px 60px;
+  }
+
+  .hero-content {
+    position: relative; z-index: 2;
+    padding: 12rem 5% 8rem;
+    max-width: 760px;
+  }
+
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: .5rem;
+    background: rgba(201,168,76,.12); border: 1px solid rgba(201,168,76,.3);
+    color: var(--gold-lt); font-size: .78rem; letter-spacing: .1em;
+    text-transform: uppercase; padding: .45rem 1rem; border-radius: 2px;
+    margin-bottom: 2rem;
+    opacity: 0; animation: fadeUp .7s .2s forwards;
+  }
+  .hero-badge::before { content: ''; width: 6px; height: 6px; background: var(--gold); border-radius: 50%; }
+
+  .hero-title {
+    font-family: var(--ff-serif); font-size: clamp(2.8rem, 6vw, 5rem);
+    font-weight: 500; line-height: 1.1; color: var(--white);
+    margin-bottom: 1.6rem;
+    opacity: 0; animation: fadeUp .7s .4s forwards;
+  }
+  .hero-title em { color: var(--teal-lt); font-style: italic; }
+
+  .hero-desc {
+    font-size: 1.05rem; line-height: 1.8; color: rgba(255,255,255,.65);
+    max-width: 540px; margin-bottom: 2.8rem;
+    opacity: 0; animation: fadeUp .7s .6s forwards;
+  }
+
+  .hero-actions {
+    display: flex; gap: 1rem; flex-wrap: wrap;
+    opacity: 0; animation: fadeUp .7s .8s forwards;
+  }
+
+  .btn-primary {
+    display: inline-flex; align-items: center; gap: .5rem;
+    background: var(--teal); color: var(--white);
+    padding: .9rem 2rem; border-radius: 4px;
+    font-size: .9rem; font-weight: 500; letter-spacing: .04em;
+    text-decoration: none; transition: background .2s, transform .2s;
+    border: 2px solid transparent;
+  }
+  .btn-primary:hover { background: var(--teal-lt); transform: translateY(-2px); }
+
+  .btn-outline {
+    display: inline-flex; align-items: center; gap: .5rem;
+    background: transparent; color: var(--white);
+    padding: .9rem 2rem; border-radius: 4px;
+    font-size: .9rem; font-weight: 400; letter-spacing: .04em;
+    text-decoration: none; border: 1.5px solid rgba(255,255,255,.3);
+    transition: border-color .2s, color .2s, transform .2s;
+  }
+  .btn-outline:hover { border-color: var(--gold); color: var(--gold-lt); transform: translateY(-2px); }
+
+  .hero-stats {
+    position: absolute; bottom: 3rem; left: 5%; right: 5%;
+    display: flex; gap: 3rem; flex-wrap: wrap;
+    border-top: 1px solid rgba(255,255,255,.08);
+    padding-top: 2.5rem;
+    opacity: 0; animation: fadeUp .7s 1s forwards;
+  }
+  .hero-stat { }
+  .hero-stat-num {
+    font-family: var(--ff-serif); font-size: 2.2rem; font-weight: 500;
+    color: var(--teal-lt); line-height: 1;
+  }
+  .hero-stat-label { font-size: .78rem; color: rgba(255,255,255,.45); letter-spacing: .08em; text-transform: uppercase; margin-top: .3rem; }
+
+  /* ── SECTION SHARED ─────────────────────── */
+  section { padding: 7rem 5%; }
+
+  .section-label {
+    display: inline-block; font-size: .75rem; letter-spacing: .14em;
+    text-transform: uppercase; color: var(--teal); font-weight: 500;
+    margin-bottom: 1rem;
+  }
+
+  .section-title {
+    font-family: var(--ff-serif); font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 500; line-height: 1.2; color: var(--navy);
+    margin-bottom: 1.2rem;
+  }
+
+  .section-title em { font-style: italic; color: var(--teal); }
+
+  .section-sub {
+    font-size: 1rem; line-height: 1.8; color: var(--muted);
+    max-width: 560px;
+  }
+
+  /* ── SERVICES ───────────────────────────── */
+  #services { background: var(--white); }
+
+  .services-header { text-align: center; margin-bottom: 4.5rem; }
+  .services-header .section-sub { margin: 0 auto; }
+
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .service-card {
+    background: var(--cream);
+    border: 1px solid rgba(26,123,116,.12);
+    border-radius: 8px; padding: 2.4rem 2rem;
+    position: relative; overflow: hidden;
+    transition: transform .25s, box-shadow .25s, border-color .25s;
+    cursor: default;
+  }
+  .service-card::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0; height: 3px;
+    background: linear-gradient(90deg, var(--teal), var(--teal-lt));
+    transform: scaleX(0); transform-origin: left;
+    transition: transform .35s;
+  }
+  .service-card:hover { transform: translateY(-5px); box-shadow: 0 16px 40px rgba(11,31,58,.1); border-color: var(--teal); }
+  .service-card:hover::before { transform: scaleX(1); }
+
+  .service-icon {
+    width: 52px; height: 52px; border-radius: 10px;
+    background: linear-gradient(135deg, rgba(26,123,116,.12), rgba(26,123,116,.06));
+    display: grid; place-items: center; margin-bottom: 1.5rem;
+    font-size: 1.5rem;
+  }
+
+  .service-title {
+    font-family: var(--ff-serif); font-size: 1.3rem; font-weight: 600;
+    color: var(--navy); margin-bottom: .75rem;
+  }
+
+  .service-desc { font-size: .9rem; line-height: 1.75; color: var(--muted); }
+
+  .service-tag {
+    display: inline-block; margin-top: 1.4rem;
+    font-size: .72rem; letter-spacing: .08em; text-transform: uppercase;
+    color: var(--teal); background: rgba(26,123,116,.08);
+    padding: .3rem .8rem; border-radius: 2px;
+  }
+
+  /* ── ABOUT ──────────────────────────────── */
+  #about { background: var(--cream); }
+
+  .about-inner {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: center;
+  }
+
+  .about-visual {
+    position: relative;
+  }
+
+  .about-img-wrap {
+    background: var(--navy-mid);
+    border-radius: 12px; overflow: hidden;
+    aspect-ratio: 4/5;
+    display: flex; align-items: center; justify-content: center;
+    position: relative;
+  }
+
+  /* decorative scientific pattern instead of image */
+  .about-pattern {
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse 80% 80% at 50% 50%, rgba(26,123,116,.3), transparent 70%),
+      linear-gradient(135deg, var(--navy) 0%, var(--navy-mid) 100%);
+  }
+
+  .about-pattern-svg {
+    position: absolute; inset: 0; width: 100%; height: 100%; opacity: .12;
+  }
+
+  .about-cert {
+    position: absolute; bottom: -1.5rem; right: -1.5rem;
+    background: var(--white); border-radius: 8px;
+    padding: 1.4rem 1.6rem; box-shadow: 0 12px 32px rgba(11,31,58,.12);
+    display: flex; align-items: center; gap: 1rem;
+  }
+  .about-cert-icon { font-size: 2rem; }
+  .about-cert-text .val {
+    font-family: var(--ff-serif); font-size: 1.6rem; font-weight: 600;
+    color: var(--navy); line-height: 1;
+  }
+  .about-cert-text .lbl { font-size: .75rem; color: var(--muted); margin-top: .15rem; }
+
+  .about-text .section-title { margin-top: .5rem; }
+
+  .about-text p { font-size: .95rem; line-height: 1.85; color: var(--muted); margin-bottom: 1.2rem; }
+
+  .about-pillars {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 2rem;
+  }
+  .pillar {
+    background: var(--white); border-radius: 8px; padding: 1.2rem;
+    border-left: 3px solid var(--teal);
+  }
+  .pillar-title { font-weight: 500; font-size: .88rem; color: var(--navy); margin-bottom: .3rem; }
+  .pillar-desc { font-size: .8rem; color: var(--muted); line-height: 1.5; }
+
+  /* ── PROCESS ────────────────────────────── */
+  #process { background: var(--navy); }
+
+  .process-header { text-align: center; margin-bottom: 5rem; }
+  .process-header .section-title { color: var(--white); }
+  .process-header .section-sub { color: rgba(255,255,255,.5); margin: 0 auto; }
+
+  .process-steps {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 2px; position: relative;
+  }
+
+  .process-step {
+    background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.07);
+    padding: 2.4rem 2rem; position: relative;
+    transition: background .25s;
+  }
+  .process-step:hover { background: rgba(26,123,116,.12); }
+
+  .step-num {
+    font-family: var(--ff-serif); font-size: 4rem; font-weight: 500;
+    color: rgba(255,255,255,.06); line-height: 1;
+    position: absolute; top: 1.2rem; right: 1.6rem;
+  }
+
+  .step-icon { font-size: 1.6rem; margin-bottom: 1.2rem; }
+
+  .step-title {
+    font-family: var(--ff-serif); font-size: 1.2rem; color: var(--white);
+    margin-bottom: .75rem; font-weight: 600;
+  }
+
+  .step-desc { font-size: .875rem; line-height: 1.7; color: rgba(255,255,255,.5); }
+
+  /* ── BOOKING ────────────────────────────── */
+  #booking { background: var(--white); }
+
+  .booking-inner {
+    display: grid; grid-template-columns: 1fr 1.2fr; gap: 5rem; align-items: start;
+  }
+
+  .booking-info .section-title { margin-top: .5rem; }
+  .booking-info p { font-size: .95rem; line-height: 1.85; color: var(--muted); margin-bottom: 2rem; }
+
+  .booking-options { display: flex; flex-direction: column; gap: .9rem; margin-top: 2rem; }
+
+  .booking-option {
+    display: flex; align-items: flex-start; gap: 1rem;
+    background: var(--cream); border-radius: 8px; padding: 1.2rem 1.4rem;
+    border: 1px solid var(--border);
+  }
+  .booking-option-icon { font-size: 1.3rem; margin-top: .1rem; flex-shrink: 0; }
+  .booking-option-title { font-weight: 500; font-size: .9rem; color: var(--navy); margin-bottom: .25rem; }
+  .booking-option-desc { font-size: .82rem; color: var(--muted); line-height: 1.5; }
+
+  .booking-form {
+    background: var(--cream); border-radius: 12px;
+    padding: 2.8rem; border: 1px solid var(--border);
+  }
+
+  .form-title {
+    font-family: var(--ff-serif); font-size: 1.5rem; font-weight: 600;
+    color: var(--navy); margin-bottom: 2rem;
+  }
+
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+
+  .form-group { margin-bottom: 1.2rem; }
+
+  .form-group label {
+    display: block; font-size: .78rem; letter-spacing: .06em;
+    text-transform: uppercase; color: var(--muted); margin-bottom: .5rem;
+    font-weight: 500;
+  }
+
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    width: 100%; padding: .85rem 1rem;
+    background: var(--white); border: 1px solid rgba(26,123,116,.2);
+    border-radius: 6px; font-family: var(--ff-sans); font-size: .9rem;
+    color: var(--text); outline: none; transition: border-color .2s, box-shadow .2s;
+  }
+
+  .form-group input:focus,
+  .form-group select:focus,
+  .form-group textarea:focus {
+    border-color: var(--teal); box-shadow: 0 0 0 3px rgba(26,123,116,.1);
+  }
+
+  .form-group textarea { resize: vertical; min-height: 110px; }
+
+  .form-submit {
+    width: 100%; padding: 1rem;
+    background: var(--teal); color: var(--white); border: none;
+    border-radius: 6px; font-family: var(--ff-sans); font-size: .95rem;
+    font-weight: 500; cursor: pointer; transition: background .2s, transform .15s;
+    margin-top: .5rem; letter-spacing: .03em;
+  }
+  .form-submit:hover { background: var(--teal-lt); transform: translateY(-1px); }
+
+  /* ── FOOTER ─────────────────────────────── */
+  footer {
+    background: var(--navy);
+    padding: 4rem 5% 2.5rem;
+    border-top: 1px solid rgba(201,168,76,.15);
+  }
+
+  .footer-top {
+    display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr;
+    gap: 3rem; margin-bottom: 3.5rem;
+  }
+
+  .footer-brand .nav-logo-text { color: var(--white); font-size: 1.3rem; }
+  .footer-brand p {
+    font-size: .85rem; line-height: 1.7; color: rgba(255,255,255,.4);
+    margin-top: 1rem; max-width: 260px;
+  }
+
+  .footer-col-title {
+    font-size: .75rem; letter-spacing: .12em; text-transform: uppercase;
+    color: var(--gold); font-weight: 500; margin-bottom: 1.2rem;
+  }
+
+  .footer-links { list-style: none; display: flex; flex-direction: column; gap: .7rem; }
+  .footer-links a {
+    color: rgba(255,255,255,.45); font-size: .875rem;
+    text-decoration: none; transition: color .2s;
+  }
+  .footer-links a:hover { color: var(--teal-lt); }
+
+  .footer-contact-item {
+    display: flex; gap: .75rem; margin-bottom: .9rem;
+    font-size: .875rem; color: rgba(255,255,255,.45); line-height: 1.5;
+  }
+  .footer-contact-item span:first-child { opacity: .7; flex-shrink: 0; margin-top: .1rem; }
+
+  .footer-bottom {
+    border-top: 1px solid rgba(255,255,255,.07);
+    padding-top: 2rem; display: flex; justify-content: space-between; align-items: center;
+    flex-wrap: wrap; gap: 1rem;
+  }
+
+  .footer-bottom p { font-size: .8rem; color: rgba(255,255,255,.3); }
+
+  /* ── ANIMATIONS ─────────────────────────── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .reveal {
+    opacity: 0; transform: translateY(28px);
+    transition: opacity .65s ease, transform .65s ease;
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* ── MOBILE ─────────────────────────────── */
+  @media (max-width: 900px) {
+    .about-inner { grid-template-columns: 1fr; gap: 3rem; }
+    .about-visual { display: none; }
+    .booking-inner { grid-template-columns: 1fr; gap: 3rem; }
+    .footer-top { grid-template-columns: 1fr 1fr; }
+    .hero-stats { gap: 2rem; }
+  }
+
+  @media (max-width: 640px) {
+    nav { padding: 1rem 5%; }
+    .nav-links { display: none; flex-direction: column; gap: 1.5rem; }
+    .nav-links.open {
+      display: flex; position: absolute; top: 100%; left: 0; right: 0;
+      background: var(--navy); padding: 2rem 5%; border-top: 1px solid rgba(255,255,255,.08);
+    }
+    .nav-toggle { display: block; }
+    .form-row { grid-template-columns: 1fr; }
+    .footer-top { grid-template-columns: 1fr; }
+    .about-pillars { grid-template-columns: 1fr; }
+    .hero-stats { position: relative; bottom: auto; margin-top: 3rem; padding-top: 2rem; }
+  }
+
+  /* ── SUCCESS MESSAGE ─────────────────────── */
+  .form-success {
+    display: none; text-align: center; padding: 2rem;
+    color: var(--teal); font-family: var(--ff-serif); font-size: 1.3rem;
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="nav">
+  <a href="#home" class="nav-logo">
+    <div class="nav-logo-icon">QC</div>
+    <span class="nav-logo-text">QC Consult <span>Pro</span></span>
+  </a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#home" class="active">Home</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#process">Process</a></li>
+    <li><a href="#booking" class="nav-cta">Book a Consultation</a></li>
+  </ul>
+  <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- HERO -->
+<section id="home">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-content">
+    <div class="hero-badge">Biopharmaceutical Quality Control</div>
+    <h1 class="hero-title">
+      Expert QC guidance for <em>every stage</em> of your career
+    </h1>
+    <p class="hero-desc">
+      Tailored consultancy services for the biopharmaceutical industry — from graduate mentorship and SOP writing to analytical method transfers and project planning.
+    </p>
+    <div class="hero-actions">
+      <a href="#services" class="btn-primary">Explore Services →</a>
+      <a href="#booking" class="btn-outline">Book a Consultation</a>
+    </div>
+  </div>
+  <div class="hero-stats">
+    <div class="hero-stat">
+      <div class="hero-stat-num">10+</div>
+      <div class="hero-stat-label">Years Industry Experience</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-num">GMP</div>
+      <div class="hero-stat-label">Compliant Documentation</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-num">ICH</div>
+      <div class="hero-stat-label">Guideline Aligned</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-num">100%</div>
+      <div class="hero-stat-label">Tailored to Your Needs</div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="services-header reveal">
+    <span class="section-label">What We Offer</span>
+    <h2 class="section-title">Specialist QC Consultancy <em>Services</em></h2>
+    <p class="section-sub">From early-career support to complex technical projects, we deliver practical expertise at every level of biopharmaceutical quality control.</p>
+  </div>
+  <div class="services-grid">
+    <div class="service-card reveal">
+      <div class="service-icon">🎓</div>
+      <div class="service-title">Graduate Career Mentoring</div>
+      <p class="service-desc">Personalised guidance for science graduates entering the biopharmaceutical industry — covering CV preparation, interview coaching, and navigating your first QC role with confidence.</p>
+      <span class="service-tag">Career Development</span>
+    </div>
+    <div class="service-card reveal">
+      <div class="service-icon">📋</div>
+      <div class="service-title">SOP & Documentation Writing</div>
+      <p class="service-desc">Professional GMP-compliant Standard Operating Procedures, method documents, and quality records crafted to regulatory standards, tailored to your laboratory environment.</p>
+      <span class="service-tag">GMP Documentation</span>
+    </div>
+    <div class="service-card reveal">
+      <div class="service-icon">🔬</div>
+      <div class="service-title">Analytical Method Transfers</div>
+      <p class="service-desc">End-to-end support for analytical method transfer projects — protocol development, execution oversight, and report writing to meet ICH Q2 and site-specific requirements.</p>
+      <span class="service-tag">Technical</span>
+    </div>
+    <div class="service-card reveal">
+      <div class="service-icon">📊</div>
+      <div class="service-title">Project Planning & Management</div>
+      <p class="service-desc">Strategic planning and resource coordination for QC projects — from new equipment qualification to laboratory restructuring — keeping your team on schedule and in compliance.</p>
+      <span class="service-tag">Strategy</span>
+    </div>
+    <div class="service-card reveal">
+      <div class="service-icon">⚗️</div>
+      <div class="service-title">Technical QC Advice</div>
+      <p class="service-desc">Expert consultation on analytical chemistry challenges, specification setting, OOS/OOT investigations, and regulatory query responses for your quality control laboratory.</p>
+      <span class="service-tag">Consulting</span>
+    </div>
+    <div class="service-card reveal">
+      <div class="service-icon">📚</div>
+      <div class="service-title">Training & Workshops</div>
+      <p class="service-desc">Interactive training sessions for QC teams covering GMP principles, data integrity, analytical techniques, and best practices tailored to your organisation's specific needs.</p>
+      <span class="service-tag">Education</span>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="about-inner">
+    <div class="about-visual reveal">
+      <div class="about-img-wrap">
+        <div class="about-pattern"></div>
+        <!-- scientific DNA/molecule SVG decoration -->
+        <svg class="about-pattern-svg" viewBox="0 0 400 500" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="200" cy="250" r="180" stroke="white" stroke-width="1" stroke-dasharray="8 12"/>
+          <circle cx="200" cy="250" r="120" stroke="white" stroke-width="1" stroke-dasharray="4 8"/>
+          <circle cx="200" cy="250" r="60" stroke="white" stroke-width="1"/>
+          <line x1="200" y1="70" x2="200" y2="430" stroke="white" stroke-width="1" stroke-dasharray="6 6"/>
+          <line x1="20" y1="250" x2="380" y2="250" stroke="white" stroke-width="1" stroke-dasharray="6 6"/>
+          <circle cx="200" cy="250" r="8" fill="white" opacity=".6"/>
+          <circle cx="200" cy="130" r="5" fill="white" opacity=".4"/>
+          <circle cx="200" cy="370" r="5" fill="white" opacity=".4"/>
+          <circle cx="80" cy="250" r="5" fill="white" opacity=".4"/>
+          <circle cx="320" cy="250" r="5" fill="white" opacity=".4"/>
+          <circle cx="115" cy="165" r="4" fill="white" opacity=".3"/>
+          <circle cx="285" cy="165" r="4" fill="white" opacity=".3"/>
+          <circle cx="115" cy="335" r="4" fill="white" opacity=".3"/>
+          <circle cx="285" cy="335" r="4" fill="white" opacity=".3"/>
+          <text x="200" y="258" fill="white" font-size="22" text-anchor="middle" opacity=".5" font-family="serif">QC</text>
+        </svg>
+      </div>
+      <div class="about-cert">
+        <div class="about-cert-icon">🏆</div>
+        <div class="about-cert-text">
+          <div class="val">GMP</div>
+          <div class="lbl">Certified Expert</div>
+        </div>
+      </div>
+    </div>
+    <div class="about-text">
+      <span class="section-label reveal">About Us</span>
+      <h2 class="section-title reveal">Rooted in <em>real-world</em> biopharmaceutical expertise</h2>
+      <p class="reveal">QC Consult Pro was founded by an experienced biopharmaceutical quality control professional with over a decade of hands-on laboratory and regulatory experience across leading pharmaceutical organisations.</p>
+      <p class="reveal">We understand the pressures of modern QC environments — tight timelines, evolving regulations, and the challenge of finding practical expertise when you need it most. That's why we offer straightforward, industry-tested consultancy that delivers real results.</p>
+      <div class="about-pillars reveal">
+        <div class="pillar">
+          <div class="pillar-title">Regulatory Aligned</div>
+          <div class="pillar-desc">All work delivered to GMP, ICH, and EMA/FDA guidelines</div>
+        </div>
+        <div class="pillar">
+          <div class="pillar-title">Practical Focus</div>
+          <div class="pillar-desc">Solutions designed for real lab environments</div>
+        </div>
+        <div class="pillar">
+          <div class="pillar-title">Confidential</div>
+          <div class="pillar-desc">Full NDAs available for all client engagements</div>
+        </div>
+        <div class="pillar">
+          <div class="pillar-title">Flexible Delivery</div>
+          <div class="pillar-desc">Remote and on-site support available</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section id="process">
+  <div class="process-header reveal">
+    <span class="section-label" style="color:var(--teal-lt)">How It Works</span>
+    <h2 class="section-title">A clear, collaborative <em style="color:var(--teal-lt)">process</em></h2>
+    <p class="section-sub">From first enquiry to final deliverable, we keep every engagement structured, transparent, and focused on your goals.</p>
+  </div>
+  <div class="process-steps">
+    <div class="process-step reveal">
+      <div class="step-num">01</div>
+      <div class="step-icon">💬</div>
+      <div class="step-title">Initial Consultation</div>
+      <p class="step-desc">A complimentary discovery call to understand your challenges, objectives, and the scope of support you need.</p>
+    </div>
+    <div class="process-step reveal">
+      <div class="step-num">02</div>
+      <div class="step-icon">📝</div>
+      <div class="step-title">Proposal & Scope</div>
+      <p class="step-desc">We provide a clear written proposal with defined deliverables, timelines, and transparent pricing — no surprises.</p>
+    </div>
+    <div class="process-step reveal">
+      <div class="step-num">03</div>
+      <div class="step-icon">🔍</div>
+      <div class="step-title">Delivery & Review</div>
+      <p class="step-desc">Expert work delivered on schedule, with regular check-ins and revision rounds built into every engagement.</p>
+    </div>
+    <div class="process-step reveal">
+      <div class="step-num">04</div>
+      <div class="step-icon">✅</div>
+      <div class="step-title">Sign-off & Support</div>
+      <p class="step-desc">Final deliverables handed over with implementation guidance, plus optional follow-on support as you apply the work.</p>
+    </div>
+  </div>
+</section>
+
+<!-- BOOKING -->
+<section id="booking">
+  <div class="booking-inner">
+    <div class="booking-info">
+      <span class="section-label reveal">Get in Touch</span>
+      <h2 class="section-title reveal">Book your <em>free</em> discovery call</h2>
+      <p class="reveal">Whether you're a graduate starting out, a QC manager tackling a complex project, or a company in need of specialist documentation support — let's talk. The first consultation is always complimentary.</p>
+      <div class="booking-options reveal">
+        <div class="booking-option">
+          <div class="booking-option-icon">📞</div>
+          <div>
+            <div class="booking-option-title">30-min Discovery Call</div>
+            <div class="booking-option-desc">A free initial conversation to explore how we can help you. No obligation, no sales pitch.</div>
+          </div>
+        </div>
+        <div class="booking-option">
+          <div class="booking-option-icon">💼</div>
+          <div>
+            <div class="booking-option-title">Project Enquiry</div>
+            <div class="booking-option-desc">For SOPs, method transfers, or documentation projects, tell us the scope and we'll provide a detailed proposal.</div>
+          </div>
+        </div>
+        <div class="booking-option">
+          <div class="booking-option-icon">🎓</div>
+          <div>
+            <div class="booking-option-title">Mentoring Package</div>
+            <div class="booking-option-desc">Multi-session career mentoring for graduates and early-career scientists entering biopharmaceutical QC.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="booking-form reveal">
+      <div class="form-title">Send an Enquiry</div>
+      <div id="formSuccess" class="form-success">
+        ✓ Thank you — we'll be in touch within one business day.
+      </div>
+      <form id="enquiryForm">
+        <div class="form-row">
+          <div class="form-group">
+            <label>First Name</label>
+            <input type="text" placeholder="Jane" required>
+          </div>
+          <div class="form-group">
+            <label>Last Name</label>
+            <input type="text" placeholder="Smith" required>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Email Address</label>
+          <input type="email" placeholder="jane@example.com" required>
+        </div>
+        <div class="form-group">
+          <label>Organisation (optional)</label>
+          <input type="text" placeholder="Company or University">
+        </div>
+        <div class="form-group">
+          <label>Service of Interest</label>
+          <select>
+            <option value="">Select a service...</option>
+            <option>Graduate Career Mentoring</option>
+            <option>SOP & Documentation Writing</option>
+            <option>Analytical Method Transfer</option>
+            <option>Project Planning & Management</option>
+            <option>Technical QC Advice</option>
+            <option>Training & Workshops</option>
+            <option>Other / Not Sure Yet</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Tell us about your needs</label>
+          <textarea placeholder="Briefly describe what you're looking for — the more detail, the better we can prepare for our first call..."></textarea>
+        </div>
+        <button type="submit" class="form-submit">Send Enquiry →</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <div class="nav-logo" style="display:flex;align-items:center;gap:.75rem;margin-bottom:.5rem;">
+        <div class="nav-logo-icon">QC</div>
+        <span class="nav-logo-text">QC Consult <span>Pro</span></span>
+      </div>
+      <p>Expert biopharmaceutical quality control consultancy — practical expertise, real results.</p>
+    </div>
+    <div>
+      <div class="footer-col-title">Navigation</div>
+      <ul class="footer-links">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#process">Process</a></li>
+        <li><a href="#booking">Booking</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title">Services</div>
+      <ul class="footer-links">
+        <li><a href="#services">Graduate Mentoring</a></li>
+        <li><a href="#services">SOP Writing</a></li>
+        <li><a href="#services">Method Transfers</a></li>
+        <li><a href="#services">Project Planning</a></li>
+        <li><a href="#services">Training</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title">Contact</div>
+      <div class="footer-contact-item">
+        <span>✉</span>
+        <span>info@qcconsultpro.com</span>
+      </div>
+      <div class="footer-contact-item">
+        <span>🌐</span>
+        <span>Remote & On-site, Ireland & EU</span>
+      </div>
+      <div class="footer-contact-item">
+        <span>📅</span>
+        <span>Free 30-min discovery call available</span>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2025 QC Consult Pro. All rights reserved.</p>
+    <p>Biopharmaceutical Quality Control Consultancy</p>
+  </div>
+</footer>
+
+<script>
+  // Nav scroll effect
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 60);
+    // Update active link
+    const sections = ['home','services','about','process','booking'];
+    let current = 'home';
+    sections.forEach(id => {
+      const el = document.getElementById(id);
+      if (el && window.scrollY >= el.offsetTop - 120) current = id;
+    });
+    document.querySelectorAll('.nav-links a').forEach(a => {
+      a.classList.toggle('active', a.getAttribute('href') === '#' + current);
+    });
+  });
+
+  // Mobile nav toggle
+  document.getElementById('navToggle').addEventListener('click', () => {
+    document.getElementById('navLinks').classList.toggle('open');
+  });
+
+  // Close mobile nav on link click
+  document.querySelectorAll('.nav-links a').forEach(a => {
+    a.addEventListener('click', () => document.getElementById('navLinks').classList.remove('open'));
+  });
+
+  // Intersection observer for reveal animations
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), 80);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  // Stagger cards in grid
+  document.querySelectorAll('.services-grid .service-card, .process-steps .process-step').forEach((el, i) => {
+    el.style.transitionDelay = (i * 0.08) + 's';
+  });
+
+  // Form submit
+  document.getElementById('enquiryForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    this.style.display = 'none';
+    document.getElementById('formSuccess').style.display = 'block';
+  });
+</script>
+</body>
+</html>
