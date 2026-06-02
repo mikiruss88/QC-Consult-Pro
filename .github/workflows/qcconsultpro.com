@@ -555,7 +555,7 @@
 <section id="services">
   <div class="services-header reveal">
     <span class="section-label">What We Offer</span>
-    <h2 class="section-title">Specialist QC Consultancy <em>Services</em></h2>
+    <h3 class="section-title">Specialist QC Consultancy <em>Services</em></h3>
     <p class="section-sub">From early-career support to complex technical projects, we deliver practical expertise at every level of biopharmaceutical quality control.</p>
   </div>
   <div class="services-grid">
