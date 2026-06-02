@@ -555,7 +555,7 @@
 <section id="services">
   <div class="services-header reveal">
     <span class="section-label">What We Offer</span>
-    <h3 class="section-title">Specialist QC Consultancy <em>Services</em></h3>
+    <h2 class="section-title">Specialist QC Consultancy <em>Services</em></h2>
     <p class="section-sub">From early-career support to complex technical projects, we deliver practical expertise at every level of biopharmaceutical quality control.</p>
   </div>
   <div class="services-grid">
@@ -729,7 +729,7 @@
       <div id="formSuccess" class="form-success">
         ✓ Thank you — we'll be in touch within one business day.
       </div>
-      <form id="enquiryForm">
+      <form id="enquiryForm" action="https://formspree.io/f/maqkrgby" method="POST">
         <div class="form-row">
           <div class="form-group">
             <label>First Name</label>
@@ -867,12 +867,7 @@
     el.style.transitionDelay = (i * 0.08) + 's';
   });
 
-  // Form submit
-  document.getElementById('enquiryForm').addEventListener('submit', function(e) {
-    e.preventDefault();
-    this.style.display = 'none';
-    document.getElementById('formSuccess').style.display = 'block';
-  });
+  // Form submit — replace YOUR_CODE_HERE with your Formspree form code
 </script>
 </body>
 </html>
