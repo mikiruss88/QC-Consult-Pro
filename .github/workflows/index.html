@@ -729,7 +729,7 @@
       <div id="formSuccess" class="form-success">
         ✓ Thank you — we'll be in touch within one business day.
       </div>
-      <form id="enquiryForm">
+      <form id="enquiryForm" action="https://formspree.io/f/YOUR_CODE_HERE" method="POST">
         <div class="form-row">
           <div class="form-group">
             <label>First Name</label>
@@ -867,12 +867,7 @@
     el.style.transitionDelay = (i * 0.08) + 's';
   });
 
-  // Form submit
-  document.getElementById('enquiryForm').addEventListener('submit', function(e) {
-    e.preventDefault();
-    this.style.display = 'none';
-    document.getElementById('formSuccess').style.display = 'block';
-  });
+  // Form submit — replace YOUR_CODE_HERE with your Formspree form code
 </script>
 </body>
 </html>
