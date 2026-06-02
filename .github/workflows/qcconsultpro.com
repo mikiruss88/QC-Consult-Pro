@@ -80,6 +80,14 @@
   }
   .nav-cta:hover { background: var(--teal-lt) !important; color: var(--white) !important; }
 
+  .nav-location {
+    display: flex; align-items: center; gap: .55rem;
+    background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.12);
+    border-radius: 4px; padding: .4rem .9rem;
+    color: rgba(255,255,255,.75); font-size: .78rem; letter-spacing: .04em;
+    white-space: nowrap;
+  }
+
   .nav-toggle { display: none; background: none; border: none; cursor: pointer; padding: .3rem; }
   .nav-toggle span { display: block; width: 24px; height: 2px; background: var(--white); margin: 5px 0; transition: .3s; }
 
@@ -91,11 +99,19 @@
     position: relative; overflow: hidden;
   }
 
+
   .hero-bg {
     position: absolute; inset: 0;
+    background-image: url('https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?auto=format&fit=crop&w=1800&q=80');
+    background-size: cover;
+    background-position: center 40%;
+  }
+  .hero-bg::after {
+    content: '';
+    position: absolute; inset: 0;
     background:
-      radial-gradient(ellipse 60% 60% at 70% 40%, rgba(26,123,116,.22) 0%, transparent 70%),
-      radial-gradient(ellipse 40% 50% at 20% 80%, rgba(201,168,76,.08) 0%, transparent 60%);
+      linear-gradient(to right, rgba(11,31,58,.96) 0%, rgba(11,31,58,.82) 50%, rgba(11,31,58,.55) 100%),
+      radial-gradient(ellipse 60% 60% at 70% 40%, rgba(26,123,116,.15) 0%, transparent 70%);
   }
 
   /* subtle grid lines */
@@ -481,6 +497,7 @@
       background: var(--navy); padding: 2rem 5%; border-top: 1px solid rgba(255,255,255,.08);
     }
     .nav-toggle { display: block; }
+    .nav-location { display: none; }
     .form-row { grid-template-columns: 1fr; }
     .footer-top { grid-template-columns: 1fr; }
     .about-pillars { grid-template-columns: 1fr; }
@@ -509,6 +526,14 @@
     <li><a href="#process">Process</a></li>
     <li><a href="#booking" class="nav-cta">Book a Consultation</a></li>
   </ul>
+  <div class="nav-location">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 600" width="24" height="16" style="border-radius:2px;flex-shrink:0;">
+      <rect width="300" height="600" fill="#169B62"/>
+      <rect x="300" width="300" height="600" fill="#FFFFFF"/>
+      <rect x="600" width="300" height="600" fill="#FF883E"/>
+    </svg>
+    <span>Located in Ireland</span>
+  </div>
   <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
     <span></span><span></span><span></span>
   </button>
@@ -729,7 +754,7 @@
       <div id="formSuccess" class="form-success">
         ✓ Thank you — we'll be in touch within one business day.
       </div>
-      <form id="enquiryForm">
+      <form id="enquiryForm" action="https://formspree.io/f/maqkrgby" method="POST">
         <div class="form-row">
           <div class="form-group">
             <label>First Name</label>
@@ -867,12 +892,7 @@
     el.style.transitionDelay = (i * 0.08) + 's';
   });
 
-  // Form submit
-  document.getElementById('enquiryForm').addEventListener('submit', function(e) {
-    e.preventDefault();
-    this.style.display = 'none';
-    document.getElementById('formSuccess').style.display = 'block';
-  });
+  // Form submit — replace YOUR_CODE_HERE with your Formspree form code
 </script>
 </body>
 </html>
